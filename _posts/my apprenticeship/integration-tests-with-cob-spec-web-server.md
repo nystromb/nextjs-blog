@@ -3,7 +3,7 @@ title: "How I Tested A Web Server That I Built From Scratch"
 date: "2015-11-19"
 author:
   name: Brian Nystrom
-  picture: /assets/blog/authors/tim.jpeg
+  picture: /assets/blog/authors/brian.jpeg
 coverImage: /assets/blog/preview/cover.jpg
 ogImage:
   url: /assets/blog/preview/cover.jpg

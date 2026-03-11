@@ -7,7 +7,7 @@ export function Intro() {
         Hi, I'm Brian Nystrom
       </h1>
       <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        Software Engineer with 10+ years of experience designing and building production-ready software. This site showcases selected projects and work from my career.
+        Software Engineer with 10+ years of experience designing and building production-ready software. This site showcases selected personal projects and work from my career.
       </h4>
     </section>
   );

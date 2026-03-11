@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "../../../lib/api";
+import { getAllPosts, getPostBySlugOnly } from "../../../lib/api";
 import { CMS_NAME } from "../../../lib/constants";
 import markdownToHtml from "../../../lib/markdownToHtml";
 import Alert from "../../_components/alert";
@@ -10,7 +10,7 @@ import { PostBody } from "../../_components/post-body";
 import { PostHeader } from "../../_components/post-header";
 
 export default async function Post({ params }: Params) {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlugOnly(params.slug);
 
   if (!post) {
     return notFound();
@@ -44,7 +44,7 @@ type Params = {
 };
 
 export function generateMetadata({ params }: Params): Metadata {
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlugOnly(params.slug);
 
   if (!post) {
     return notFound();

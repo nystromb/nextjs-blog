@@ -3,7 +3,7 @@ title: "Pairing Tour: Day 4"
 date: "2016-03-10"
 author:
   name: Brian Nystrom
-  picture: /assets/blog/authors/tim.jpeg
+  picture: /assets/blog/authors/brian.jpeg
 coverImage: /assets/blog/preview/cover.jpg
 ogImage:
   url: /assets/blog/preview/cover.jpg

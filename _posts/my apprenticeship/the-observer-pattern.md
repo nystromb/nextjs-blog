@@ -3,7 +3,7 @@ title: "The Observer Pattern: To Observe Or Not To Observe"
 date: "2016-02-04"
 author:
   name: Brian Nystrom
-  picture: /assets/blog/authors/tim.jpeg
+  picture: /assets/blog/authors/brian.jpeg
 coverImage: /assets/blog/preview/cover.jpg
 ogImage:
   url: /assets/blog/preview/cover.jpg

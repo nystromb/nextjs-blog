@@ -1,29 +1,22 @@
 import Container from "@/app/_components/container";
-import { HeroPost } from "@/app/_components/hero-post";
 import { Intro } from "@/app/_components/intro";
-import { MoreStories } from "@/app/_components/more-stories";
-import { getAllPosts } from "../lib/api";
+import { PostGroup } from "@/app/_components/post-group";
+import { SectionSeparator } from "@/app/_components/section-separator";
+import { getAllPostsGrouped } from "../lib/api";
 
 export default function Index() {
-  const allPosts = getAllPosts();
-
-  const heroPost = allPosts[0];
-
-  const morePosts = allPosts.slice(1);
+  const groups = getAllPostsGrouped();
 
   return (
     <main>
       <Container>
         <Intro />
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
-        />
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        {groups.map((group, index) => (
+          <div key={group.label}>
+            {index > 0 && <SectionSeparator />}
+            <PostGroup group={group} />
+          </div>
+        ))}
       </Container>
     </main>
   );
