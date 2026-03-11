@@ -3,6 +3,7 @@ title: "The Interface Segregation Principle: A SOLID Software Principle"
 date: 2015-10-07T12:30:00.000Z
 author:
   name: Brian Nystrom
+  picture: /assets/blog/authors/tim.jpeg
 ogImage:
   url: /assets/blog/preview/cover.jpg
 ---
