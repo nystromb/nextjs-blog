@@ -1,56 +1,51 @@
 ## NystromProjects Blog
 
-A simple Next.js blog for writing and organizing posts in Markdown.
+A simple static blog built with Next.js and Markdown for publishing personal posts and grouped writing.
 
-## Run it
+## Getting started
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Post organization
+Then open `http://localhost:3000`.
 
-Posts live in `/_posts`.
+## Purpose of this repository
 
-- Files directly in `_posts/` are ungrouped.
-- Files inside a folder like `_posts/my apprenticeship/` become a named group.
-- The homepage shows:
-  - a `Latest` section with the newest 2 posts
-  - grouped sections next
-  - a fallback `See more` section for ungrouped posts
+This repo is a lightweight content-based blog. Posts live in `_posts` and are organized by folder and front matter, making it easy to keep writing without a database or CMS.
 
-## Front matter
-
-Example:
-
-```yaml
----
-title: "My Post"
-date: "2026-11-02"
-excerpt: "A short summary"
-author:
-  name: Brian Nystrom
-  picture: /assets/blog/authors/brian.jpeg
-coverImage: /assets/blog/preview/cover.jpg
-ogImage:
-  url: /assets/blog/preview/cover.jpg
-groupRank: 1
----
-```
-
-Notes:
-
-- `groupRank` is optional and controls group ordering.
-- Lower numbers sort earlier.
-- Ungrouped posts stay last.
-
-## Adding a post
-
-Create a Markdown file under `/_posts` or in a subfolder. The filename becomes the slug, and the folder name becomes the group label.
-
-## Build
+## Deploy a release
 
 ```bash
-npm run build
+git checkout main
+git pull
+# make your changes and commit them
+git tag v1.0.0
+git push origin v1.0.0
 ```
+
+This pushes the tag and triggers the GitHub Action.
+
+## What the automation does
+
+When a tag matching `v*` is pushed, the workflow automatically:
+
+1. checks out the repo
+2. installs dependencies
+3. builds the static site
+4. uploads the generated `out/` folder to the configured S3 bucket
+5. invalidates CloudFront if a distribution ID is configured
+
+This keeps deploys intentional and avoids deploying from every `main` push.
+
+## Required GitHub repo variables
+
+Set these in GitHub repository variables:
+
+- `AWS_ROLE_ARN`
+- `AWS_REGION`
+- `S3_BUCKET`
+- `CLOUDFRONT_DISTRIBUTION_ID` (optional)
+
+Once those are set, creating and pushing a version tag is all that is needed to deploy.

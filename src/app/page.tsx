@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Container from "@/app/_components/container";
 import { Intro } from "@/app/_components/intro";
 import { PostGroup } from "@/app/_components/post-group";
@@ -6,9 +7,12 @@ import { SectionSeparator } from "@/app/_components/section-separator";
 import { getAllPosts, getAllPostsGrouped } from "../lib/api";
 
 export default function Index() {
-  const latestPosts = getAllPosts().slice(0, 2);
+  const allPosts = getAllPosts();
+  const latestPosts = allPosts.slice(0, 2);
   const latestSlugSet = new Set(latestPosts.map((post) => post.slug));
-  const groups = getAllPostsGrouped()
+  const allGroups = getAllPostsGrouped();
+  const fullCounts = new Map(allGroups.map((g) => [g.key, g.posts.length]));
+  const groups = allGroups
     .map((group) => ({
       ...group,
       posts: group.posts.filter((post) => !latestSlugSet.has(post.slug)),
@@ -38,15 +42,25 @@ export default function Index() {
                 />
               ))}
             </div>
+            <Link href="/posts" className="text-lg font-semibold hover:underline">
+              View all posts →
+            </Link>
           </section>
         )}
 
         {groups.map((group, index) => (
           <div key={group.label}>
             {index > 0 && <SectionSeparator />}
-            <PostGroup group={group} />
+            <PostGroup group={group} totalCount={fullCounts.get(group.key)} />
           </div>
         ))}
+
+        <SectionSeparator />
+        <div className="mb-16">
+          <Link href="/posts" className="text-lg font-semibold hover:underline text-center">
+            View all {allPosts.length} posts →
+          </Link>
+        </div>
       </Container>
     </main>
   );

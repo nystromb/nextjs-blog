@@ -15,7 +15,13 @@ type SlugEntry = { slug: string; group: string | null };
 export type PostGroup = { key: string; label: string; posts: Post[] };
 
 function normalizeGroupKey(group: string | null | undefined): string {
-  return group && group.trim() ? group : "other";
+  if (!group || !group.trim()) return "other";
+  // Group keys are used in URLs, so turn folder names like "my apprenticeship" into "my-apprenticeship"
+  return group
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export function getPostSlugs(): SlugEntry[] {

@@ -2,9 +2,9 @@ import Link from "next/link";
 import { type PostGroup } from "@/lib/api";
 import { PostPreview } from "./post-preview";
 
-type Props = { group: PostGroup };
+type Props = { group: PostGroup; totalCount?: number };
 
-export function PostGroup({ group }: Props) {
+export function PostGroup({ group, totalCount = group.posts.length }: Props) {
   const preview = group.posts.slice(0, 2);
 
   return (
@@ -25,12 +25,14 @@ export function PostGroup({ group }: Props) {
           />
         ))}
       </div>
-      {group.posts.length > 2 && (
+      {totalCount > preview.length && (
         <Link
           href={`/group/${encodeURIComponent(group.key)}`}
           className="text-lg font-semibold hover:underline"
         >
-          View all {group.posts.length} posts →
+          {group.key === "other"
+            ? `See all ${totalCount} other posts →`
+            : `See all ${totalCount} posts in ${group.label} →`}
         </Link>
       )}
     </section>
