@@ -15,12 +15,14 @@ export default function GroupPage({ params }: Params) {
   const group = getGroup(params.group);
   if (!group) return notFound();
 
+  const pageTitle = group.key === "other" ? "Other Posts" : group.label;
+
   return (
     <main>
       <Container>
         <Header />
         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-12">
-          {group.label}
+          {pageTitle}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
           {group.posts.map((post) => (

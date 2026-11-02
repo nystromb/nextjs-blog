@@ -1,17 +1,16 @@
 ---
 title: "From Apprentice to Senior Engineer: 10 Years Later"
+date: "2026-10-04"
 excerpt: I wrote many of the posts on this site during my software engineering
-  apprenticeship. It’s been almost a decade since then, so I wanted to reflect
-  on what I’ve learned since entering the industry.
+  apprenticeship. It’s been about a decade since then, where did the time go?
 author:
   name: Brian Nystrom
   picture: /assets/blog/authors/brian.jpeg
 ---
-About ten years ago I started a software engineering apprenticeship and began documenting what I was learning on this blog. At the time, I was focused on understanding the fundamentals of programming, shipping my first real projects, and figuring out how the industry worked.
+Over ten years ago I started a software engineering apprenticeship and began documenting what I was learning on this blog. At the time, I was focused on understanding the fundamentals of programming, shipping my first real projects, and figuring out how the industry worked.
 
 A decade later, after working as a software engineer and building production systems in the real world, I wanted to reflect on that journey. That includes what I’ve learned, what surprised me, and how the field has changed, especially with the rise of AI-assisted development.
 
-  
 I re-read some of the posts from that time and was reminded how special the apprenticeship period was. The software market was hot, Ruby on Rails was everywhere, CoffeeScript was a thing, and we spent a lot of time thinking about code quality and testing. Much of the focus was on learning how to write clean, maintainable code and understanding the tools we were using.
 
 Today the landscape looks very different. AI tools can generate large portions of code from a prompt, and productivity expectations for developers continue to increase. Instead of writing every line ourselves, we are often reviewing, guiding, and refining code produced by tools.

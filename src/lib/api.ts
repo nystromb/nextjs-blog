@@ -4,10 +4,19 @@ import matter from "gray-matter";
 import { join } from "path";
 
 const postsDirectory = join(process.cwd(), "_posts");
+const DEFAULT_COVER_IMAGE = "/assets/blog/preview/cover.jpg";
+const DEFAULT_AUTHOR = {
+  name: "Brian Nystrom",
+  picture: "/assets/blog/authors/brian.jpeg",
+};
 
 type SlugEntry = { slug: string; group: string | null };
 
 export type PostGroup = { key: string; label: string; posts: Post[] };
+
+function normalizeGroupKey(group: string | null | undefined): string {
+  return group && group.trim() ? group : "other";
+}
 
 export function getPostSlugs(): SlugEntry[] {
   const entries: SlugEntry[] = [];
@@ -36,6 +45,7 @@ export function getPostSlugs(): SlugEntry[] {
 
 export function getPostBySlug(slug: string, group: string | null = null): Post {
   const realSlug = slug.replace(/\.md$/, "");
+  const resolvedGroup = normalizeGroupKey(group);
   const fullPath = group
     ? join(postsDirectory, group, `${realSlug}.md`)
     : join(postsDirectory, `${realSlug}.md`);
@@ -45,7 +55,14 @@ export function getPostBySlug(slug: string, group: string | null = null): Post {
   return {
     ...data,
     slug: realSlug,
-    group: group ?? undefined,
+    group: resolvedGroup,
+    groupRank:
+      typeof data.groupRank === "number" ? data.groupRank : undefined,
+    title: data.title ?? realSlug,
+    coverImage: data.coverImage ?? DEFAULT_COVER_IMAGE,
+    author: data.author ?? DEFAULT_AUTHOR,
+    excerpt: data.excerpt ?? "",
+    ogImage: { url: data.ogImage?.url ?? DEFAULT_COVER_IMAGE },
     content,
     date: data.date instanceof Date ? data.date.toISOString() : data.date,
   } as Post;
@@ -68,16 +85,30 @@ export function getAllPostsGrouped(): PostGroup[] {
   const buckets = new Map<string, Post[]>();
 
   for (const post of allPosts) {
-    const key = post.group ?? "";
+    const key = normalizeGroupKey(post.group);
     if (!buckets.has(key)) buckets.set(key, []);
     buckets.get(key)!.push(post);
   }
 
-  return Array.from(buckets.entries()).map(([key, posts]) => ({
-    key,
-    label: key
-      ? key.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-      : "Other",
-    posts,
-  }));
+  return Array.from(buckets.entries())
+    .map(([key, posts]) => ({
+      key,
+      label:
+        key === "other"
+          ? "See more"
+          : key.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+      posts,
+      groupRank: posts.reduce((rank, post) => {
+        if (key === "other") return Number.MAX_SAFE_INTEGER;
+        if (typeof post.groupRank === "number") {
+          return Math.min(rank, post.groupRank);
+        }
+        return rank;
+      }, key === "other" ? Number.MAX_SAFE_INTEGER : Number.MAX_SAFE_INTEGER / 2),
+    }))
+    .sort((a, b) => {
+      if (a.groupRank !== b.groupRank) return a.groupRank - b.groupRank;
+      return a.label.localeCompare(b.label);
+    })
+    .map(({ groupRank, ...group }) => group);
 }
