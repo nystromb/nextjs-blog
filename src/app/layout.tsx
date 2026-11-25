@@ -9,8 +9,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `Brian Nystrom - Software Engineer`,
-  description: `A portfolio blog of Brian Nystrom, a software engineer and web developer. Featuring articles on web development, programming, and technology.`,
+  title: `Brian Nystrom`,
+  description: `The personal site of Brian Nystrom. Notes, projects, and things I find interesting.`,
   openGraph: {
     images: [HOME_OG_IMAGE_URL],
   },
