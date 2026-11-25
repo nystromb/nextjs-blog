@@ -60,7 +60,7 @@ export default function RootLayout({
         <div className="min-h-screen">{children}</div>
         <Footer />
       </body>
-      <GoogleAnalytics gaId="G-WPV41PDS5W" />
+      <GoogleAnalytics gaId="G-6B5Z35KCER" />
     </html>
   );
 }
